@@ -6,18 +6,12 @@ interface IUser {
     email: string
 }
 
-type InitialStateProps = {
-    user: IUser,
-    outro: number
-}
-
-const initialState: InitialStateProps = {
+const initialState: { user : IUser } = {
     user: {
         id: null,
         name: '',
         email: ''
-    },
-    outro: 123
+    }
 }
 
 export const userSlice = createSlice({
@@ -27,11 +21,16 @@ export const userSlice = createSlice({
         createUser: (state, action) => {
             console.log('state:', state)
             console.log('action:', action)
-            return { ...state }
+
+            return {
+                ...state,
+                name: action.payload.name
+         }
         }
 
     }
 })
 
+export const { createUser } = userSlice.actions;
 export default userSlice.reducer;
 
