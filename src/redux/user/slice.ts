@@ -19,13 +19,10 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         createUser: (state, action) => {
-            console.log('state:', state)
-            console.log('action:', action)
-
             return {
                 ...state,
                 name: action.payload.name
-         }
+            }
         }
 
     }
