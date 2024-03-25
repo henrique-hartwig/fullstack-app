@@ -1,30 +1,30 @@
 version: '3.8'
 
 services:
-  nginx:
-    build: 
-      dockerfile: ./docker/frontend.dockerfile
-      context: .
-    image: my-nginx:v1
-    container_name: server_nginx
-    ports:
-      - '8080:80'
-    networks:
-      - nwproject
-    depend_on:
-      - frontend
-      - backend
-      - database
+  # nginx:
+  #   build: 
+  #     dockerfile: ./docker/frontend.dockerfile
+  #     context: .
+  #   image: my-nginx:v1
+  #   container_name: server_nginx
+  #   ports:
+  #     - '8080:80'
+  #   networks:
+  #     - nwproject
+  #   depend_on:
+  #     - frontend
+      # - backend
+      # - database
 
-  my-database:
-    build:
-      dockerfile: ./docker/database.dockerfile
-      context: .
-      image: my-db:v1
-      volume: 
-        - pgdata
-    networks:
-      - nwproject
+  # my-database:
+  #   build:
+  #     dockerfile: ./docker/database.dockerfile
+  #     context: .
+  #     image: my-db:v1
+  #     volume: 
+  #       - pgdata
+  #   networks:
+  #     - nwproject
 
   frontend:
     build:
@@ -36,15 +36,15 @@ services:
         - '8000'
       network: nwproject
 
-  backend:
-    build:
-      dockerfile: ./docker/backend.dockerfile
-      context: .
-      image: backend:v1
-      container_name: backend
-      ports:
-        - '8000'
-      network: nwproject
+  # backend:
+  #   build:
+  #     dockerfile: ./docker/backend.dockerfile
+  #     context: .
+  #     image: backend:v1
+  #     container_name: backend
+  #     ports:
+  #       - '8000'
+  #     network: nwproject
 
 networks:
   nwproject:
