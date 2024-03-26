@@ -28,10 +28,10 @@ services:
 
   web:
     build:
-      context: .
       dockerfile: ./web/Dockerfile
-    # image: frontend:v1
-    # container_name: frontend
+      context: .
+    image: frontend:v1
+    container_name: web
     ports:
       - '8080:8000'
     # network: nwproject

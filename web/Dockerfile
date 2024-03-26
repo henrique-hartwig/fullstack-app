@@ -5,15 +5,15 @@ WORKDIR /usr/src/app
 
 COPY package*.json .
 RUN ls
-RUN npm install
+# RUN npm install
 
-COPY . .
+# COPY . .
 
-RUN npm run build
-
+# RUN npm run build
 EXPOSE 3000
 
-CMD ["npm", "start"]
+RUN sleep 30
+# CMD ["npm", "start"]
 
 # Stage 1
 # FROM nginx
