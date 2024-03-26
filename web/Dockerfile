@@ -4,11 +4,16 @@ FROM node:16-alpine3.14
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-COPY yarn.lock ./
-RUN yarn
+
+RUN npm install
 
 COPY . .
-RUN yarn build
+
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
 
 # Stage 1
 # FROM nginx

@@ -26,15 +26,18 @@ services:
   #   networks:
   #     - nwproject
 
-  frontend:
-    build:
-      dockerfile: ./docker/frontend.dockerfile
-      context: .
-      image: frontend:v1
-      container_name: frontend
-      ports:
-        - '8000'
-      network: nwproject
+  web:
+    build: ./web/
+    # image: frontend:v1
+    # container_name: frontend
+    ports:
+      - '8000'
+    # network: nwproject
+    volumes:
+      - ./project:/app
+    environment:
+      - NODE_ENV=dev
+
 
   # backend:
   #   build:
@@ -50,5 +53,5 @@ networks:
   nwproject:
     driver: bridge
 
-volumes:
-  pgdata: /var/lib/postgresql/data/
+# volumes:
+#   pgdata: /var/lib/postgresql/data/
