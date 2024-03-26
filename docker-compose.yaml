@@ -27,11 +27,13 @@ services:
   #     - nwproject
 
   web:
-    build: ./web/
+    build:
+      context: .
+      dockerfile: ./web/Dockerfile
     # image: frontend:v1
     # container_name: frontend
     ports:
-      - '8000'
+      - '8080:8000'
     # network: nwproject
     volumes:
       - ./project:/app
