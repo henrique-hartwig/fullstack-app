@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import userReducer from './user/slice';
+import { taskSlice } from './task/taskSlice';
+
 
 export default combineReducers({
-  user: userReducer
+  task: taskSlice
 })

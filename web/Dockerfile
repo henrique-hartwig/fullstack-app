@@ -1,19 +1,22 @@
 # Stage 0
-FROM node:16-alpine3.14
+FROM node:lts-alpine3.19
 
 WORKDIR /usr/src/app
 
-COPY package*.json .
-RUN ls
-# RUN npm install
+COPY ./web/package*.json ./
 
-# COPY . .
+RUN npm install
+# RUN yarn
 
-# RUN npm run build
+COPY ./web/. .
+
+
 EXPOSE 3000
 
-RUN sleep 30
-# CMD ["npm", "start"]
+RUN npm run build
+# ENTRYPOINT ["npm", "start"]
+ENTRYPOINT [ "python", "nada.py" ]
+
 
 # Stage 1
 # FROM nginx
