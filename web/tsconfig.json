@@ -9,5 +9,12 @@
     "jsx": "react-jsx",
     "noImplicitAny": false,
     "noEmit": true
-  }
+  },
+  "include": [
+    "src",
+    "@types"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
