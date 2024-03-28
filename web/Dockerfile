@@ -14,8 +14,9 @@ COPY ./web/. .
 EXPOSE 3000
 
 RUN npm run build
-# ENTRYPOINT ["npm", "start"]
-ENTRYPOINT [ "python", "nada.py" ]
+
+ENTRYPOINT ["npm", "start"]
+# ENTRYPOINT [ "python", "nada.py" ]
 
 
 # Stage 1
