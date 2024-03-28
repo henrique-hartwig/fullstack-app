@@ -4,11 +4,8 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import Column from './Column';
 import { TaskContext } from '../context/TaskContext';
-import { useDispatch } from 'react-redux';
-import { selectedTask } from '../redux/task/taskSlice';
 
 const DragAndDrop = ({ tasks, setTasks }) => {
-  const dispatch = useDispatch()
 
   const updateTask = async (task, newStatus) => {
     const url = `http://localhost:3001/tasks/${task.id}`;
@@ -43,12 +40,6 @@ const DragAndDrop = ({ tasks, setTasks }) => {
     };
     
     const { setSelectedTask } = useContext(TaskContext);
-    const handleSelectedTask = (e: MouseEvent) => {
-      if(e) {
-        console.log('event:', e)
-        dispatch(setSelectedTask(e.target))
-      }
-    }
 
     return (
       <DndProvider backend={HTML5Backend}>
@@ -58,8 +49,7 @@ const DragAndDrop = ({ tasks, setTasks }) => {
                 title="To Do" 
                 tasks={tasks.filter(task => task.status === 'To Do')} 
                 onMoveTask={moveTask} 
-                // onClick={(e) => handleSelectedTask }
-                />
+                onClick={(e) => setSelectedTask(e.target.value)} />
             <Column 
                 title="Doing"
                 tasks={tasks.filter(task => task.status === 'Doing')}

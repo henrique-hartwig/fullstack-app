@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useState, useContext, FC } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Form, FormControl } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import CreateTaskModal from './components/CreateTaskModal';

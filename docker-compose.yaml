@@ -16,15 +16,18 @@ services:
       # - backend
       # - database
 
-  # my-database:
-  #   build:
-  #     dockerfile: ./docker/database.dockerfile
-  #     context: .
-  #     image: my-db:v1
-  #     volume: 
-  #       - pgdata
-  #   networks:
-  #     - nwproject
+
+  my-database:
+    build: 
+      dockerfile: ./databse/Dockerfile
+      context: .
+    image: my-db:v1
+    networks:
+      - nwproject
+    volumes:
+      - ./migrations:/flyway/sql/migrations:rw,z
+    env_file: .environment
+  
 
   web:
     build:
@@ -34,7 +37,7 @@ services:
     container_name: web
     ports:
       - '8080:8000'
-    # network: nwproject
+    network: nwproject
     volumes:
       - ./project:/app
     environment:

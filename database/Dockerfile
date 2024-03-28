@@ -1,12 +1,5 @@
-FROM postgres:13.1-alpine
-LABEL mainainer="Henrique M. Hartwig <henrique2805@gmail.com>"
-ENV POSTGRES_DB=
-ENV POSTGRES_USER=
-ENV POSTGRES_PASSWORD=
-EXPOSE 5432
-
-
 FROM --platform=linux/amd64 python:3
+LABEL mainainer="Henrique M. Hartwig <henrique2805@gmail.com>"
 
 ENV FLYWAY_VERSION=6.0.6
 
@@ -15,3 +8,6 @@ RUN wget -qO- https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${F
 RUN pip install pystrich
 RUN pip install psycopg2
 
+ADD migration_runner.py .
+
+EXPOSE 5432

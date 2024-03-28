@@ -1,0 +1,11 @@
+.item {
+    border-radius: 30px;
+}
+
+.dragging {
+    opacity: 0.5;
+}
+
+.not-dragging {
+    opacity: 1;
+}

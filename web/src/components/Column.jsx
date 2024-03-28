@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, ListGroup } from 'react-bootstrap';
 import { useDrop } from 'react-dnd';
+import './Column.css';
 import Task from './Task';
 
 const Column = ({ title, tasks, onMoveTask }) => {
@@ -15,7 +16,7 @@ const Column = ({ title, tasks, onMoveTask }) => {
     });
   
     return (
-      <Col ref={drop} style={{ background: isOver ? '#b2cef3' : 'transparent' }}>
+      <Col ref={drop} className={isOver? 'is-over' : 'is-not-over'}>
         <h3>{title}</h3>
         <ListGroup>
           {tasks.map((task, index) => (

@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { ITask } from './ITask'
 
-
-interface TaskFormProps {
-  task: ITask;
-  onSubmit: (task: ITask) => Promise<ITask>;
-}
-
-const TaskForm:  React.FC<TaskFormProps> = ({ task, onSubmit }) => {
-  const dateFormatter = (date: string): string => {
+const TaskForm = ({ task, onSubmit }) => {
+  const dateFormatter = (date) => {
     return new Date(date).toISOString().split('T')[0]
   }
 
@@ -17,28 +10,20 @@ const TaskForm:  React.FC<TaskFormProps> = ({ task, onSubmit }) => {
   const [dueDate, setDueDate] = useState(task? dateFormatter(task.due_date) : '');
   const [status, setStatus] = useState(task? task.status : 'To Do');
 
-  const handleSubmit = async (e: Event): Promise<void> => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const task: ITask = {
+    const task = {
         title,
         due_date: dueDate,
         status
-    };
-
-    async () => {
-      try {
-        const success: Promise<ITask> = await onSubmit(task);
-        if (success) {
-          setTitle('');
-          setStatus('');
-          setDueDate('');
-        }
-      }
-      catch {
-        console.error(error)
-      }
     }
 
+    const success = await onSubmit(task);
+    if (success) {
+      setTitle('');
+      setStatus('');
+      setDueDate('');
+    }
   };
 
 
