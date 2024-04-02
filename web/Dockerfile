@@ -6,20 +6,16 @@ WORKDIR /usr/src/app
 COPY ./web/package*.json ./
 
 RUN npm install
-# RUN yarn
 
 COPY ./web/. .
-
 
 EXPOSE 3000
 
 RUN npm run build
 
-# ENTRYPOINT ["npm", "start"]
-# ENTRYPOINT [ "python", "nada.py" ]
+CMD ["npx", "serve", "-s", "build", "-l", "3000"]
 
-
-# Stage 1
+# # Stage 1
 # FROM nginx
 
 # ADD default.conf /etc/nginx/conf.d/

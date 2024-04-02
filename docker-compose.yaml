@@ -1,34 +1,32 @@
 version: '3.8'
-
 services:
-  # nginx:
-  #   build: 
-  #     dockerfile: ./docker/frontend.dockerfile
-  #     context: .
-  #   image: my-nginx:v1
-  #   container_name: server_nginx
-  #   ports:
-  #     - '8080:80'
+  nginx:
+    build: 
+      dockerfile: ./proxy/Dockerfile
+      context: .
+    image: my-nginx:v1
+    container_name: nginx
+    ports:
+      - '8080:80'
+    volumes:
+      - ./project:/usr/share/nginx/html
   #   networks:
   #     - nwproject
-  #   depend_on:
-  #     - frontend
+
       # - backend
       # - database
 
-
-  my-database:
-    build: 
-      dockerfile: ./databse/Dockerfile
-      context: .
-    image: my-db:v1
-    networks:
-      - nwproject
-    volumes:
-      - ./migrations:/flyway/sql/migrations:rw,z
-    env_file: .environment
+  # my-database:
+  #   build: 
+  #     dockerfile: ./databse/Dockerfile
+  #     context: .
+  #   image: my-db:v1
+  #   networks:
+  #     - nwproject
+  #   volumes:
+  #     - ./migrations:/flyway/sql/migrations:rw,z
+  #   env_file: .environment
   
-
   web:
     build:
       dockerfile: ./web/Dockerfile
@@ -36,13 +34,14 @@ services:
     image: frontend:v1
     container_name: web
     ports:
-      - '8080:8000'
-    network: nwproject
+      - '3000'
+    # network: nwproject
     volumes:
-      - ./project:/app
+      - ./project:/usr/src/app/
     environment:
       - NODE_ENV=dev
-
+    depends_on:
+      - nginx
 
   # backend:
   #   build:
@@ -54,9 +53,9 @@ services:
   #       - '8000'
   #     network: nwproject
 
-networks:
-  nwproject:
-    driver: bridge
+# networks:
+#   nwproject:
+#     driver: bridge
 
 # volumes:
 #   pgdata: /var/lib/postgresql/data/
