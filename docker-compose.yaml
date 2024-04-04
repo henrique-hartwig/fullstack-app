@@ -1,18 +1,19 @@
-version: '3.8'
 services:
   nginx:
     build: 
       dockerfile: ./proxy/Dockerfile
       context: .
-    image: my-nginx:v1
+    image: nginx
     container_name: nginx
+    restart: always
     ports:
       - '8080:80'
     volumes:
-      - ./project:/usr/share/nginx/html
-  #   networks:
-  #     - nwproject
-
+      - ./web/src:/usr/share/nginx/html
+    depends_on:
+      - web
+    networks:
+      - nwproject
       # - backend
       # - database
 
@@ -35,27 +36,27 @@ services:
     container_name: web
     ports:
       - '3000'
-    # network: nwproject
+    networks:
+      - nwproject
     volumes:
       - ./project:/usr/src/app/
     environment:
       - NODE_ENV=dev
-    depends_on:
-      - nginx
 
-  # backend:
-  #   build:
-  #     dockerfile: ./docker/backend.dockerfile
-  #     context: .
-  #     image: backend:v1
-  #     container_name: backend
-  #     ports:
-  #       - '8000'
-  #     network: nwproject
+  api:
+    build:
+      dockerfile: ./api/Dockerfile
+      context: .
+    image: backend:v1
+    container_name: api
+    ports:
+      - '4000'
+    networks: 
+      - nwproject
 
-# networks:
-#   nwproject:
-#     driver: bridge
+networks:
+  nwproject:
+    driver: bridge
 
 # volumes:
 #   pgdata: /var/lib/postgresql/data/

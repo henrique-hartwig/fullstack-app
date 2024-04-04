@@ -8,7 +8,7 @@ import { TaskContext } from '../context/TaskContext';
 const DragAndDrop = ({ tasks, setTasks }) => {
 
   const updateTask = async (task, newStatus) => {
-    const url = `http://localhost:3001/tasks/${task.id}`;
+    const url = `http://localhost:4000/tasks/${task.id}`;
     const newTask = {
         id: Number(task.id),
         title: task.title,

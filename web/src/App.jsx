@@ -9,7 +9,7 @@ import TaskModal from './components/TaskModal';
 import {TaskContext} from './context/TaskContext';
 
 function App() {
-  const url = 'http://localhost:3001/tasks';
+  const url = 'http://localhost:4000/tasks';
 
   const [ tasks, setTasks ] = useState([]);
   const [ filteredTasks, setFilteredTasks ] = useState([]);
@@ -50,7 +50,7 @@ function App() {
   };
 
   const handleDeleteTask = async (id) => {
-    const url = `http://localhost:3001/tasks/${id}`;
+    const url = `http://localhost:4000/tasks/${id}`;
 
     const res = await fetch(url, {
       method: 'DELETE'
@@ -91,7 +91,7 @@ function App() {
   }
 
   const handleUpdateTask = async (task) => {
-    const url = `http://localhost:3001/tasks/${selectedTask.id}`;
+    const url = `http://localhost:4000/tasks/${selectedTask.id}`;
     
     const updatedTask = {
       ...task,
