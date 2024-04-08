@@ -1,14 +1,14 @@
 FROM node:lts-alpine3.19
+LABEL mainainer="Henrique M. Hartwig <henrique2805@gmail.com>"
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./ 
+COPY ./api/package*.json .
+
 RUN npm install
 
-COPY . .
+COPY ./api/. .
 
 EXPOSE 4000
-
-RUN npm run build
 
 CMD ["npx", "serve", "-s", "build", "-l", "4000"]

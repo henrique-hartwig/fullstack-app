@@ -1,13 +1,22 @@
 FROM --platform=linux/amd64 python:3
 LABEL mainainer="Henrique M. Hartwig <henrique2805@gmail.com>"
 
-ENV FLYWAY_VERSION=6.0.6
+WORKDIR /usr/src/
 
-RUN wget -qO- https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz | tar xvz && mv flyway-${FLYWAY_VERSION} flyway && ln -s `pwd`/flyway/flyway /usr/local/bin
+COPY ./database/flyway-commandline-6.0.6-linux-x64.tar.gz flyway.tar.gz
+
+RUN tar -xf flyway.tar.gz 
+
+RUN mv flyway-6.0.6 flyway 
+
+RUN ln -s /usr/src/flyway/flyway /usr/local/bin
 
 RUN pip install pystrich
+
 RUN pip install psycopg2
 
-ADD migration_runner.py .
+ADD ./database/migration_runner.py .
+
+ENTRYPOINT ["python", "migration_runner.py"]
 
 EXPOSE 5432

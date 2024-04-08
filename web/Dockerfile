@@ -1,9 +1,10 @@
 # Stage 0
 FROM node:lts-alpine3.19
+LABEL mainainer="Henrique M. Hartwig <henrique2805@gmail.com>"
 
 WORKDIR /usr/src/app
 
-COPY ./web/package*.json ./
+COPY ./web/package*.json .
 
 RUN npm install
 

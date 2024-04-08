@@ -12,21 +12,21 @@ services:
       - ./web/src:/usr/share/nginx/html
     depends_on:
       - web
+      - api
     networks:
       - nwproject
-      # - backend
-      # - database
 
-  # my-database:
-  #   build: 
-  #     dockerfile: ./databse/Dockerfile
-  #     context: .
-  #   image: my-db:v1
-  #   networks:
-  #     - nwproject
-  #   volumes:
-  #     - ./migrations:/flyway/sql/migrations:rw,z
-  #   env_file: .environment
+  database:
+    build: 
+      dockerfile: ./database/Dockerfile
+      context: .
+    image: my-database:v1
+    networks:
+      - nwproject
+    volumes:
+      - ./migrations:/flyway/sql/migrations:rw,z
+      - ./database/volume/:/var/lib/postgresql/data/
+    env_file: .environment
   
   web:
     build:
@@ -39,9 +39,11 @@ services:
     networks:
       - nwproject
     volumes:
-      - ./project:/usr/src/app/
+      - ./volume:/usr/src/app/
     environment:
       - NODE_ENV=dev
+    depends_on:
+      - database
 
   api:
     build:
@@ -53,10 +55,9 @@ services:
       - '4000'
     networks: 
       - nwproject
+    depends_on:
+      - database
 
 networks:
   nwproject:
     driver: bridge
-
-# volumes:
-#   pgdata: /var/lib/postgresql/data/
