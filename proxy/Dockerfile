@@ -1,8 +1,8 @@
 FROM nginx:latest
 LABEL mainainer="Henrique M. Hartwig <henrique2805@gmail.com>"
 
-COPY ./proxy/nginx.conf /etc/nginx/templates/
+COPY ./proxy/nginx.conf /etc/nginx/conf.d/
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]

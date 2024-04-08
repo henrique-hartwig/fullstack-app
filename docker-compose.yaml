@@ -9,22 +9,23 @@ services:
     ports:
       - '8080:80'
     volumes:
-      - ./web/src:/usr/share/nginx/html
+      - ./web:/usr/share/nginx/html
     depends_on:
       - web
       - api
-    networks:
-      - nwproject
+    # networks:
+    #   - nwproject
 
   database:
     build: 
       dockerfile: ./database/Dockerfile
       context: .
     image: my-database:v1
-    networks:
-      - nwproject
+    container_name: database
+    # networks:
+    #   - nwproject
     volumes:
-      - ./migrations:/flyway/sql/migrations:rw,z
+      - ./database/migrations:/flyway/sql/migrations:rw,z
       - ./database/volume/:/var/lib/postgresql/data/
     env_file: .environment
   
@@ -35,9 +36,9 @@ services:
     image: frontend:v1
     container_name: web
     ports:
-      - '3000'
-    networks:
-      - nwproject
+      - '3000:3000'
+    # networks:
+    #   - nwproject
     volumes:
       - ./volume:/usr/src/app/
     environment:
