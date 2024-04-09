@@ -21,3 +21,6 @@ subprocess.call(command, shell=True, stderr=subprocess.STDOUT)
 sys.stdout.flush()
 
 print("Finished Applying Flyway Migrations")
+
+while(1):
+  pass

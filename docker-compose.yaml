@@ -17,20 +17,21 @@ services:
     #   - nwproject
 
   database:
-    build: 
-      dockerfile: ./database/Dockerfile.database
-      context: .
-    image: database:v1
+    image: postgres:alpine3.19
     container_name: database
+    restart: always
     # networks:
     #   - nwproject
     volumes:
       - ./database/volume/:/var/lib/postgresql/data/
     env_file: .environment
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - '5432'
+      - '5432:5432'
   
-    migration:
+  migration:
     build: 
       dockerfile: ./database/Dockerfile.migration
       context: .
@@ -44,17 +45,17 @@ services:
     depends_on:
       - database
 
-    flyway:
-    image: flyway/flyway:latest
-    container_name: flyway
-    # command: -url=jdbc:mysql://db -schemas=myschema -user=root -password=P@ssw0rd -connectRetries=60 migrate
-    # networks:
-    #   - nwproject
-    volumes:
-      - ./database/migrations:/flyway/sql/:rw,z
-    env_file: .environment
-    depends_on:
-      - database
+  # flyway:
+  #   image: flyway/flyway:latest
+  #   container_name: flyway
+  #   # command: -url=jdbc:mysql://db -schemas=myschema -user=root -password=P@ssw0rd -connectRetries=60 migrate
+  #   # networks:
+  #   #   - nwproject
+  #   volumes:
+  #     - ./database/migrations:/flyway/sql/:rw,z
+  #   env_file: .environment
+  #   depends_on:
+  #     - database
 
   web:
     build:
@@ -66,8 +67,8 @@ services:
       - '3000:3000'
     # networks:
     #   - nwproject
-    volumes:
-      - ./volume:/usr/src/app/
+    # volumes:
+    #   - ./volume:/usr/src/app/
     environment:
       - NODE_ENV=dev
     depends_on:

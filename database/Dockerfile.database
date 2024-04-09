@@ -1,22 +1,10 @@
-FROM --platform=linux/amd64 python:3
+FROM postgres:latest
 LABEL mainainer="Henrique M. Hartwig <henrique2805@gmail.com>"
 
-WORKDIR /usr/src/
+ENV POSTGRES_USER=DB_USER
+ENV POSTGRES_PASSWORD=DB_PASSWORD
+ENV POSTGRES_DB=DB_NAME
+ENV POSTGRES_HOST=DB_HOST
+ENV POSTGRES_PORT=DB_PORT
 
-COPY ./database/flyway-commandline-6.0.6-linux-x64.tar.gz flyway.tar.gz
-
-RUN tar -xf flyway.tar.gz 
-
-RUN mv flyway-6.0.6 flyway 
-
-RUN ln -s /usr/src/flyway/flyway /usr/local/bin
-
-RUN pip install pystrich
-
-RUN pip install psycopg2
-
-ADD ./database/migration_runner.py .
-
-ENTRYPOINT ["python", "migration_runner.py"]
-
-EXPOSE 5432
+VOLUME /var/lib/postgresql/data
