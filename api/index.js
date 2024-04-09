@@ -113,4 +113,5 @@ app.delete('/tasks/:id', async (req, res) => {
 
 app.listen(port, () => {
   console.log(`API rodando em http://localhost:${port}`);
+  console.log(`API rodando em http://${process.env.API_HOST}:${process.env.API_PORT}`);
 });

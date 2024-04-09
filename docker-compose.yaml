@@ -18,17 +18,44 @@ services:
 
   database:
     build: 
-      dockerfile: ./database/Dockerfile
+      dockerfile: ./database/Dockerfile.database
       context: .
-    image: my-database:v1
+    image: database:v1
     container_name: database
     # networks:
     #   - nwproject
     volumes:
-      - ./database/migrations:/flyway/sql/migrations:rw,z
       - ./database/volume/:/var/lib/postgresql/data/
     env_file: .environment
+    ports:
+      - '5432'
   
+    migration:
+    build: 
+      dockerfile: ./database/Dockerfile.migration
+      context: .
+    image: migration:v1
+    container_name: migration
+    # networks:
+    #   - nwproject
+    volumes:
+      - ./database/migrations:/flyway/sql/migrations:rw,z
+    env_file: .environment
+    depends_on:
+      - database
+
+    flyway:
+    image: flyway/flyway:latest
+    container_name: flyway
+    # command: -url=jdbc:mysql://db -schemas=myschema -user=root -password=P@ssw0rd -connectRetries=60 migrate
+    # networks:
+    #   - nwproject
+    volumes:
+      - ./database/migrations:/flyway/sql/:rw,z
+    env_file: .environment
+    depends_on:
+      - database
+
   web:
     build:
       dockerfile: ./web/Dockerfile

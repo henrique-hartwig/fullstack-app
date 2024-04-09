@@ -1,6 +1,6 @@
 {
-  "short_name": "Clint Task Manager",
-  "name": "Create Clint Task Manager Sample",
+  "short_name": "Kanban Task Manager",
+  "name": "Create Kanban Task Manager Sample",
   "icons": [
     {
       "src": "favicon.ico",

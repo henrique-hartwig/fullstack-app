@@ -127,7 +127,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        Clint Tasks Manager
+        Kanban Tasks Manager
       </header>
 
       <div>

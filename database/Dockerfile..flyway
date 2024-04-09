@@ -1,0 +1,4 @@
+FROM flyway/flyway:latest
+LABEL mainainer="Henrique M. Hartwig <henrique2805@gmail.com>"
+
+ENTRYPOINT ["flyway"]
