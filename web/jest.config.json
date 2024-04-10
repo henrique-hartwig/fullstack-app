@@ -1,0 +1,11 @@
+{
+  "preset": "ts-jest/presets/js-with-ts",
+  "globals": {
+    "ts-jest": {
+      "isolatedModules": true
+    }
+  },
+  "moduleNameMapper": {
+      "^axios$": "axios/dist/node/axios.cjs"
+    }
+}

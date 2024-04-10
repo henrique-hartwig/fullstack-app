@@ -10,11 +10,11 @@ RUN npm install
 
 COPY ./web/. .
 
-EXPOSE 3000
+EXPOSE 3001
 
 RUN npm run build
 
-CMD ["npx", "serve", "-s", "build", "-l", "3000"]
+CMD ["npx", "serve", "-s", "build", "-l", "3001"]
 
 # # Stage 1
 # FROM nginx
