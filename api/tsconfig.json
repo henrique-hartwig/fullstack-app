@@ -1,7 +1,20 @@
 {
-    "include": [ "src/**/*" ],
+    "include": [
+		"src/**/*",
+		"test/**/*",
+		"@types"
+	],
 	"compilerOptions": {
 		"outDir": "./dist",
-		"module": "nodenext"
-	}
+		"target": "ESNext",
+		"module": "nodenext",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noImplicitAny": false,
+		"noEmit": true
+	},
+	"exclude": [
+		"node_modules"
+	]
 }

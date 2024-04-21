@@ -7,4 +7,19 @@ export default [
   {languageOptions: { globals: globals.browser }},
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
+  {
+    rules: {
+      // "arrow-body-style": "off"
+    }
+  },
+  {
+    overrides: [
+      {
+        files: ["tests/**/*"],
+        env: {
+          jest: true
+        }
+      }
+    ]
+  }
 ];
