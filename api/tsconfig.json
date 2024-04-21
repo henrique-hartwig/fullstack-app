@@ -1,11 +1,10 @@
 {
     "include": [
 		"src/**/*",
-		"test/**/*",
 		"@types"
 	],
 	"compilerOptions": {
-		"outDir": "./dist",
+		"outDir": "./dist/",
 		"target": "ESNext",
 		"module": "nodenext",
 		"esModuleInterop": true,
@@ -15,6 +14,10 @@
 		"noEmit": true
 	},
 	"exclude": [
-		"node_modules"
+		"node_modules",
+		"**/*.spec.*",
+		"test",
+		"typings",
+		"jest.config.json"
 	]
 }

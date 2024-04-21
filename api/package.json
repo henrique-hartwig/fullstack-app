@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --watch src/index.js",
+    "build": "tsc",
+    "start": "npm run build && node --watch ../dist/index.js",
     "start:dev": "nodemon src/index.js",
     "lint": "eslint src/** test/** --fix",
-    "test": "jest --no-cache"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",

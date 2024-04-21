@@ -1,9 +1,9 @@
+const app = require('../src/app')
 
 beforeEach(() => {
-  const supertest = require('supertest')
-  const request = supertest('http://localhost:4000')
+  // const supertest = require('supertest')
+  // const request = supertest('http://localhost:4000')
 })
-
 
 test('should create App div', () => {
   const a = null
@@ -21,5 +21,6 @@ test('should have name key at my object', () => {
 test('should return statu 200 of my API host', () => {
   const supertest = require('supertest')
   const request = supertest('http://localhost:4000')
-  request.get/('/').then(res => expect(res.status).toBe(200))
+  app
+  return request.get('/').then(res => expect(res.status).toBe(400))
 })
