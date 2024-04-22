@@ -3,11 +3,7 @@ const bodyParser = require('body-parser');
 const pool = require('./db');
 const cors = require('cors');
 
-const dotenv = require('dotenv')
-dotenv.config( { path: '../.env' })
-
 const app = express();
-const port = process.env.API_PORT;
 
 app.use(bodyParser.json());
 app.use(cors());

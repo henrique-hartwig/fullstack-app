@@ -1,21 +1,28 @@
 {
-    "include": [
-		"src/**/*",
-		"@types"
-	],
 	"compilerOptions": {
-		"outDir": "./dist/",
-		"target": "ESNext",
-		"module": "nodenext",
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"target": "ES2022",
+		"module": "NodeNext",
+		"baseUrl": ".",
 		"esModuleInterop": true,
+		"allowJs": true,
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
 		"noImplicitAny": false,
-		"noEmit": true
+		"noEmit": true,
+		"typeRoots": [
+			"@types",
+			"./node_modules/@types"
+		]
 	},
+	"include": [
+		"src/**/*.ts",
+		"@types"
+	],
 	"exclude": [
 		"node_modules",
-		"**/*.spec.*",
+		"**/*.spec.ts",
 		"test",
 		"typings",
 		"jest.config.json"

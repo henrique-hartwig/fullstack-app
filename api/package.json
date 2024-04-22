@@ -2,10 +2,10 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "npm run build && node --watch ../dist/index.js",
+    "build": "rm -rf dist && tsc",
+    "start": "npm run build && node --watch dist/index.js",
     "start:dev": "nodemon src/index.js",
     "lint": "eslint src/** test/** --fix",
     "test": "jest"
