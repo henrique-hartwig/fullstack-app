@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
-app.get('/tasks', async (req, res) => {
+app.get('/tasks', async (req: any, res) => {
   try {
     let query = 'SELECT * FROM tasks';
     const values = [];
@@ -19,7 +19,7 @@ app.get('/tasks', async (req, res) => {
     if (queryParams.length > 0) {
       query += ' WHERE';
 
-      queryParams.forEach(param => {
+      queryParams.forEach((param: any) => {
         query += ` ${param} = $${index} AND`;
         values.push(req.query[param]);
         index++;
@@ -108,3 +108,5 @@ app.delete('/tasks/:id', async (req, res) => {
       res.status(500).send('Error code 500');
   }
 });
+
+export default app;
