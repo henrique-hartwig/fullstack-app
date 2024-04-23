@@ -21,7 +21,7 @@ app.get('/tasks', async (req: any, res) => {
 
       queryParams.forEach((param: any) => {
         query += ` ${param} = $${index} AND`;
-        values.push(req.query[param]);
+        // values.push(req.query[param]);
         index++;
       });
       query = query.slice(0, -4);
@@ -109,4 +109,14 @@ app.delete('/tasks/:id', async (req, res) => {
   }
 });
 
-export default app;
+app.get('/users', (request, response) => {
+  const users = [
+    {
+      name: 'Henrique',
+      email: 'henrique2805@gmail.com'
+    }
+  ]
+  response.status(200).json(users)
+})
+
+module.exports = app;
