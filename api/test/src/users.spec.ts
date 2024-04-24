@@ -1,13 +1,21 @@
-import test, { beforeEach } from "node:test"
-
 const request = require('supertest')
-const appTest = require('../../src/app')
+const usersTest = require('../../src/users')
 
-test('should list all users', () => {
-    request(appTest).get('/users')
-        .then((response: any) => {
-            expect(response.status).toBe(200);
-            expect(response.body).toHaveLength(1);
-            expect(response.body[1]).toHaveProperty('name', 'Henrique')
-        })
+it('should list all users', () => {
+return request(usersTest).get('/users')
+    .then((response: any) => {            
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveLength(1)
+        expect(response.body[0]).toHaveProperty('name', 'Henrique')
+    })
 })
+
+// it('should create a new user', () => {
+//     request(usersTest).post('/users')
+//         .send({ name: 'João', email: 'joao@mail.com' })
+//         .then((response: any) => {            
+//             expect(response.status).toBe(201)
+//             expect(response.body).toHaveLength(1)
+//             expect(response.body[0]).toHaveProperty('name', 'João')
+//         })
+// })

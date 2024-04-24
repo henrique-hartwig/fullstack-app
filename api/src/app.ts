@@ -1,12 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
 const pool = require('./db');
-const cors = require('cors');
+const app = require('express')();
 
-const app = express();
+// const consign = require('consign')
 
-app.use(bodyParser.json());
-app.use(cors());
+// consign({ cwd: 'src' }) // botar verbose: false
+//   .include('./config/middlewares.js')
+//   .into(app)
+
+app.use(require('body-parser').json());
+app.use(require('cors')());
 
 
 app.get('/tasks', async (req: any, res) => {
@@ -108,15 +110,5 @@ app.delete('/tasks/:id', async (req, res) => {
       res.status(500).send('Error code 500');
   }
 });
-
-app.get('/users', (request, response) => {
-  const users = [
-    {
-      name: 'Henrique',
-      email: 'henrique2805@gmail.com'
-    }
-  ]
-  response.status(200).json(users)
-})
 
 module.exports = app;
