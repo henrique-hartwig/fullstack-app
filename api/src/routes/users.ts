@@ -1,13 +1,15 @@
-module.exports = (app) => {
-  app.get('/users', (request, response) => {
+module.exports = () => {
+  const getUsers = (request, response) => {
     const users = [{
       name: 'Henrique',
       email: 'henrique2805@gmail.com'
       }]
     response.status(200).json(users)
-  })
+  }
 
-  app.post('/users', (request, response) => {
+  const createUsers = (request, response) => {
     response.status(201).json(request.body)
-  })
-};
+  }
+
+  return { getUsers, createUsers }
+}

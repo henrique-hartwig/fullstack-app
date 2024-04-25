@@ -1,4 +1,4 @@
-const appTest = require('../../src/app')
+const appTest = require('../src/app')
 
 beforeEach(() => {
   // const supertest = require('supertest')
@@ -18,11 +18,11 @@ it('should have name key at my object', () => {
   expect(person).toHaveProperty('name')
 })
 
-// it('should return statu 200 of my API host', () => {
-//   const supertest = require('supertest')
-//   const request = supertest('http://localhost:4000')
-//   return request.get('/')
-//     .then((response: any) => {
-//       expect(response.status).toBe(400)
-//     })
-// })
+it('should return statu 200 of my API host', () => {
+  const supertest = require('supertest')
+  const request = supertest('http://localhost:4000')
+  return request.get('/')
+    .then((response: any) => {
+      expect(response.status).toBe(400)
+    })
+})

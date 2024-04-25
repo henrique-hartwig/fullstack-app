@@ -1,14 +1,11 @@
-const pool = require('./db');
-const app = require('express')();
+const pool = require('./db')
+const app = require('express')()
 
-// const consign = require('consign')
+const consign = require('consign')
 
-// consign({ cwd: 'src' }) // botar verbose: false
-//   .include('./config/middlewares.js')
-//   .into(app)
-
-app.use(require('body-parser').json());
-app.use(require('cors')());
+consign({ cwd: 'src' }) // botar verbose: false
+  .include('./config/middlewares.js')
+  .into(app)
 
 
 app.get('/tasks', async (req: any, res) => {
@@ -29,8 +26,8 @@ app.get('/tasks', async (req: any, res) => {
       query = query.slice(0, -4);
     }
     
-    const result = await pool.query(query, values);
-    res.status(200).json(result.rows);
+    const result = await pool.query(query, values)
+    res.status(200).json(result.rows)
 } catch (error) {
     console.error('Error trying to fetch data:', error);
     res.status(500).send('Error code 500');
@@ -38,77 +35,77 @@ app.get('/tasks', async (req: any, res) => {
 });
 
 app.get('/tasks/:id', async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.id
   try {
-    const result = await pool.query('SELECT * FROM tasks WHERE id = $1;', [id]);
-    res.status(200).json(result.rows[0]);
+    const result = await pool.query('SELECT * FROM tasks WHERE id = $1;', [id])
+    res.status(200).json(result.rows[0])
     
     if (result.rows.length === 0) {
-      return res.status(404).json({ message: 'Task not found.' });
+      return res.status(404).json({ message: 'Task not found.' })
     }
     } catch (error) {
-      console.error('Error trying to fetch data:', error);
-      res.status(500).send('Error code 500');
+      console.error('Error trying to fetch data:', error)
+      res.status(500).send('Error code 500')
     }
 });
 
 app.post('/tasks', async (req, res) => {
-  const { title, due_date, status } = req.body;
+  const { title, due_date, status } = req.body
 
   if (!title || !due_date || !status) {
-    return res.status(400).json({ message: 'Need to fill in fields.' });
+    return res.status(400).json({ message: 'Need to fill in fields.' })
   }
 
-  const insertQuery = 'INSERT INTO tasks (title, due_date, status) VALUES ($1, $2, $3) RETURNING *';
+  const insertQuery = 'INSERT INTO tasks (title, due_date, status) VALUES ($1, $2, $3) RETURNING *'
   try {
-    const result = await pool.query(insertQuery, [title, due_date, status]);
-    res.status(201).json(result.rows[0]);
+    const result = await pool.query(insertQuery, [title, due_date, status])
+    res.status(201).json(result.rows[0])
 } catch (error) {
-    console.error('Error trying to fetch data:', error);
-    res.status(500).send('Error code 500');
+    console.error('Error trying to fetch data:', error)
+    res.status(500).send('Error code 500')
   }
-});
+})
 
 app.put('/tasks/:id', async (req, res) => {
-  const id = req.params.id;
-  const { title, due_date, status } = req.body;
+  const id = req.params.id
+  const { title, due_date, status } = req.body
 
   if (!title || !due_date || !status) {
-    return res.status(400).json({ message: 'Need to fill in fields.' });
+    return res.status(400).json({ message: 'Need to fill in fields.' })
   }
 
   const updateQuery = 'UPDATE tasks SET "title" = $2, due_date = $3, status = $4 \
-    WHERE id = $1 RETURNING *';
+    WHERE id = $1 RETURNING *'
   try {
-    const result = await pool.query(updateQuery, [id, title, due_date, status]);
+    const result = await pool.query(updateQuery, [id, title, due_date, status])
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ status: 200, message: 'Task not found.' });
+      return res.status(404).json({ status: 200, message: 'Task not found.' })
     }
-    res.status(204).json(result.rows[0]);
+    res.status(204).json(result.rows[0])
 
     } catch (error) {
-      console.error('Error trying to fetch data:', error);
-      res.status(500).send('Error code 500');
+      console.error('Error trying to fetch data:', error)
+      res.status(500).send('Error code 500')
   }
-});
+})
 
 app.delete('/tasks/:id', async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.id
 
-  const deleteQuery = 'DELETE FROM tasks WHERE id = $1 RETURNING *';
+  const deleteQuery = 'DELETE FROM tasks WHERE id = $1 RETURNING *'
   try {
-    const result = await pool.query(deleteQuery, [id]);
+    const result = await pool.query(deleteQuery, [id])
     
     if (result.rows.length === 0) {
-      return res.status(404).json({ message: 'Task not found.' });
+      return res.status(404).json({ message: 'Task not found.' })
     }
-    res.status(200).json(result.rows[0]);
+    res.status(200).json(result.rows[0])
   
   } catch (error) {
-      console.error('Error trying to fetch data:', error);
-      res.status(500).send('Error code 500');
+      console.error('Error trying to fetch data:', error)
+      res.status(500).send('Error code 500')
   }
-});
+})
 
-module.exports = app;
+module.exports = app
