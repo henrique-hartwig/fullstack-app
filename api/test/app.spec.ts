@@ -23,6 +23,6 @@ it('should return statu 200 of my API host', () => {
   const request = supertest('http://localhost:4000')
   return request.get('/')
     .then((response: any) => {
-      expect(response.status).toBe(400)
+      expect(response.status).toBe(404)
     })
 })

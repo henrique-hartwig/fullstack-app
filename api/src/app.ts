@@ -1,11 +1,8 @@
 const pool = require('./db')
 const app = require('express')()
 
-const consign = require('consign')
-
-consign({ cwd: 'src' }) // botar verbose: false
-  .include('./config/middlewares.js')
-  .into(app)
+const middlewares = require('./config/middlewares.js')
+middlewares(app)
 
 
 app.get('/tasks', async (req: any, res) => {
